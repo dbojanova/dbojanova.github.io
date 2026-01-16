@@ -12,8 +12,8 @@
         :root {
             /* Color Palette */
             --forest: #3d4f47;
-            --gold: #c9a135;  
-            --coral: #d88c7d;
+            --coral: #f89880;  
+            --pink: #d88c7d;
             --blush: #e5d0cb;
             --cream: #f5f0ed;
             --purple : #7d6b7d;
@@ -43,13 +43,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                /*  lines */
-                linear-gradient(120deg, transparent 48%, rgba(216, 140, 125, 0.08) 49%, rgba(216, 140, 125, 0.08) 51%, transparent 52%),
-                linear-gradient(45deg, transparent 48%, rgba(125, 107, 125, 0.06) 49%, rgba(125, 107, 125, 0.06) 51%, transparent 52%),
-                linear-gradient(160deg, transparent 48%, rgba(201, 161, 53, 0.05) 49%, rgba(201, 161, 53, 0.05) 51%, transparent 52%),
-                /* base */
-                linear-gradient(135deg, var(--forest) 0%, #2d3b35 50%, var(--forest) 100%);
+            background: linear-gradient(40deg, var(--forest) 0%, #2d3b35 60%, var(--coral) 100%);
             z-index: -1;
             opacity: 1;
         }
@@ -73,7 +67,7 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--coral);
-            -webkit-text-stroke: 0.5px var(--blush);
+            /* -webkit-text-stroke: 0.5px var(--blush); */
             position: relative;
             padding-bottom: 0.5rem;
             /* background: var(--forest) */
@@ -166,7 +160,7 @@
         /* Tabs Section */
         .tabs-section {
             border-radius: 20px;
-            padding: 3rem 3rem;
+            padding: 1.5rem 1.5rem;
         }
 
         .tab-input {
@@ -177,16 +171,20 @@
             display: flex;
             gap: 1rem;
             margin-bottom: 3rem;
-            border-bottom: 3px solid var(--coral);
+            border-bottom: 3px solid var(--blush);
+        }
+
+        p {
+            margin-bottom: 20px;
         }
 
         .tab-button {
             background: none;
             border: none;
-            padding: 1rem 1.3rem;
+            padding: 1rem 1rem;
             font-family: 'Karla', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 1.2rem;
+            font-weight: 700;
             color: var(--blush);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -199,6 +197,7 @@
         }
 
         #tab-overview:checked ~ .tabs-nav label[for="tab-overview"],
+        #tab-projects:checked ~ .tabs-nav label[for="tab-projects"],
         #tab-career:checked ~ .tabs-nav label[for="tab-career"],
         #tab-extra:checked ~ .tabs-nav label[for="tab-extra"] {
             color: var(--coral);
@@ -213,15 +212,22 @@
         }
 
         #tab-overview:checked ~ #overview,
+        #tab-projects:checked ~ #projects,
         #tab-career:checked ~ #career,
         #tab-extra:checked ~ #extra {
             display: grid;
         }
 
         #tab-overview:checked ~ #overview{
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 3rem;
-            align-items: start;
+            align-items: center;
+        }
+        @media (max-width: 768px) {
+            #tab-overview:checked ~ #overview {
+                grid-template-columns: 1fr;  /* Single column on mobile */
+                gap: 2rem;
+            }
         }
 
         .tab-content h2 {
@@ -229,6 +235,21 @@
             font-size: 2.5rem;
             color: var(--forest);
             position:relative;
+        }
+
+        .tab-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--forest);
+            position:relative;
+        }
+
+        .tab-content h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--forest);
+            position:relative;
+            font-weight: 400;
         }
 
         .tab-content p {
@@ -251,9 +272,9 @@
         .skill-tag {
             padding: 0.6rem 1.25rem;
             background: rgba(229, 208, 203, 0.1);
-            border: 2px solid var(--coral);
+            border: 2px solid var(--pink);
             border-radius: 25px;
-            color: var(--coral);
+            color: var(--pink);
             font-weight: 600;
             font-size: 0.9rem;
             transition: all 0.3s ease;
@@ -265,13 +286,39 @@
         }
 
         .skill-tag:hover {
-            background: var(--coral);
+            background: var(--pink);
             color: var(--charcoal);
             transform: translateY(-2px);
         }
 
         .skill-tag:nth-child(even):hover {
             background: var(--purple);
+        }
+        
+        /* mobile reformating */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            #tab-overview:checked ~ #overview {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .tabs-nav {
+                overflow-x: auto;
+            }
+
+            .tab-button {
+                white-space: nowrap;
+            }
+
+            .tab-content {
+                padding: 2rem 1.5rem;
+            }
         }
 
     </style>
@@ -296,40 +343,84 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Computational Biogeochemist</h1>
-            <p>Marrying multidisciplinary data to tell hollistic and exciting stories about how microorganisms survive in and co-evolve with their environments.</p>
+            <p>Developing and running analytical pipelines that integrate diverse data sources to unravel complex interactions and reveal holistic stories.</p>
         </div>
     </section>
     <section class="tabs-section">
         <input type="radio" name="tabs" id="tab-overview" class="tab-input" checked>
+        <input type="radio" name="tabs" id="tab-projects" class="tab-input">
         <input type="radio" name="tabs" id="tab-career" class="tab-input">
         <input type="radio" name="tabs" id="tab-extra" class="tab-input">
         <div class="tabs-nav">
             <label for="tab-overview" class="tab-button">About Me</label>
-            <label for="tab-career" class="tab-button">Career $ Education</label>
+            <label for="tab-projects" class="tab-button">Projects</label>
+            <label for="tab-career" class="tab-button">Career & Education</label>
             <label for="tab-extra" class="tab-button">Extra</label>
         </div>
         <div class="tab-content" id="overview">
             <div>   
                 <h2>About Me</h2>
-                <p>I am Didi.</p>
+                <p>I'm passionate about understanding how our world works: how the parts of a system make the whole. </p>
+                <p>My background is in biogeochemistry: studying how microbial communities and their environments co-evolve over time. I started as a wet-lab researcher, primarily using my computational skills for hobby projects. During the 2020 lockdown, I pivoted to what I really enjoy: processing, wrangling, and visualizing data rather than generating it in the lab.</p>   
+                <p>Since that pivot, I've worked with multidisciplinary datasets from extreme environments (from the deep marine subsurface to acidic mine sites). My work aims to explain how these environments have been shaped by microbial communities and how these communities can drive change in the future.</p>
+                <p>Ultimately, I simply like to build computational infrastructure and tell data-driven stories.</p>                   
+
             </div>
             <div class="skills">
-                <span class="skill-tag">Computational Biology</span>
+                <span class="skill-tag">Bioinformatics</span>
                 <span class="skill-tag">Biogeochemistry</span>
+                <span class="skill-tag">Molecular Biology</span>
+                <span class="skill-tag">Thermodynamics</span>
                 <span class="skill-tag">Data Wrangling</span>
+                <span class="skill-tag">Data Visualisation</span>
+                <span class="skill-tag">Pipeline Development</span>
+                <span class="skill-tag">Webapp Development</span>
+                <span class="skill-tag">Nextflow</span>
                 <span class="skill-tag">R/RShiny</span>
                 <span class="skill-tag">Python</span>
+                <span class="skill-tag">CSS/HTML</span>
                 <span class="skill-tag">Machine Learning</span>
-                <span class="skill-tag">Microbiology</span>
-                <span class="skill-tag">Data Visualisation</span>
-                <span class="skill-tag">Nextflow</span>
-                <span class="skill-tag">Webapp Development</span>
+                
             </div>
+        </div>
+        <div class="tab-content" id="projects">
+            <div class="content-text"></div>
+                <h2>Projects</h2>
+                <p bold>Some fun projects that I have done on my own time (alas IP prevents me from sharing most of my work):</p>
+                <details open>
+                    <summary>
+                        <h3> 1. Estimating The Thermodynamic Potential of Microbial Catabolism.</h3>
+                    </summary>
+                    <p></p> 
+                    <p>The app is available at <a href="https://github.com/dbojanova/deltaG" >this GitHub Repo</a> and open for. The core function will always remain the same but I'm working on beautifying the UI and making it even more accessible!</p>
+                </details>
+
+                <details open>
+                    <summary>
+                        <h3> 2. Asgards Around The World.</h3>
+                    </summary>
+                    <p>The Asgardarchaeota are a phylum of archaeal microbes from which we and all other multi-cellular organisms (known as eukaryotes) arose, a process known as Eukaryogenesis. 
+                        They break our current distinctions between the prokaryotic and eukaryotic worlds by having things are eukaryotic specific proteins (ESP) - which it turns out aren't actually specific to eukaryotes.
+                        While the majority of the focus has been on the exciting topic of Eukaryogenesis, it's important to remember that the Asgards are still around! In fact they seem to be everywhere we look -- deep sea sediments, freshwater, salt water, soils (yes, including your backyard!), and in mammal bodies.
+                        In this study, my co-authors and I assembled our own Asgard genomes from the deep marine subsurface of Guaymas Basin and did a global survery of all the published Asgard genomes to date to understand what they are doing in the modern.
+                        This includes how they contribute to global and local biogeochemical cycles and how they may relevant in remediation and biotechnology. </p>
+                    <p>Read our preprint here: coming soon!</p> 
+                    <p>Checkout my <a href="https://github.com/dbojanova/Guaymas_Asgards" >GitHub Repo</a> for the nextflow pipelines and scripts used to retrieve, wrangle, and visualize the data.</p>                  
+                </details>
+
+                <p>Game Dev.</p>
+                <p>Machine Learning</p>
+            </div>  
         </div>
         <div class="tab-content" id="career">
             <div class="content-text"></div>
                 <h2>Career & Education</h2>
-                <p>UChi, USC, IODP, Transition Metal Solutions.</p>
+                <h3> Career </h3>
+                <h4> Lead Computational Scientist - Transition Metal Solutions</h4>
+                <h4> Field Microbiologist - International Ocean Discovery Program (IODP)</h4>
+                <h3> Education </h3>
+                <h4> Computational Biogeochemistry, Ph.D. - University of Southern California  </h4>
+                <h4> Biological and Geophysical Sciences, B.S. x2 - University of Chicago  </h4>
             </div>  
         </div>
         <div class="tab-content" id="extra">
